@@ -1,0 +1,56 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 480
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object Button1: TButton
+    Position.X = 336.000000000000000000
+    Position.Y = 24.000000000000000000
+    Size.Width = 249.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    Text = #53580#49828#53944' '#54532#47112#51076' '#49373#49457
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Position.X = 336.000000000000000000
+    Position.Y = 64.000000000000000000
+    Size.Width = 249.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Text = 'Toolbar + TestFrame'
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Position.X = 384.000000000000000000
+    Position.Y = 248.000000000000000000
+    TabOrder = 2
+    Text = 'Button3'
+    OnClick = Button3Click
+  end
+  object Rectangle1: TRectangle
+    Position.X = 8.000000000000000000
+    Position.Y = 16.000000000000000000
+    Size.Width = 305.000000000000000000
+    Size.Height = 433.000000000000000000
+    Size.PlatformDefault = False
+    object Layout1: TLayout
+      Align = Client
+      Margins.Left = 1.000000000000000000
+      Margins.Top = 1.000000000000000000
+      Margins.Right = 1.000000000000000000
+      Margins.Bottom = 1.000000000000000000
+      Size.Width = 303.000000000000000000
+      Size.Height = 431.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+    end
+  end
+end

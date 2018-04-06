@@ -1,0 +1,39 @@
+object Frame1: TFrame1
+  Size.Width = 334.000000000000000000
+  Size.Height = 489.000000000000000000
+  Size.PlatformDefault = False
+  object Circle1: TCircle
+    Position.X = 32.000000000000000000
+    Position.Y = 256.000000000000000000
+    Size.Width = 50.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Rectangle1: TRectangle
+    Position.X = 32.000000000000000000
+    Position.Y = 160.000000000000000000
+    Size.Width = 50.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Line1: TLine
+    LineType = Diagonal
+    Position.X = 40.000000000000000000
+    Position.Y = 80.000000000000000000
+    Size.Width = 50.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Edit1: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 3
+    Position.X = 32.000000000000000000
+    Position.Y = 32.000000000000000000
+  end
+  object Button1: TButton
+    Position.X = 136.000000000000000000
+    Position.Y = 32.000000000000000000
+    TabOrder = 4
+    Text = 'Button1'
+  end
+end

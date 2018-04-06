@@ -1,0 +1,31 @@
+object frRButtonToolbar: TfrRButtonToolbar
+  Size.Width = 514.000000000000000000
+  Size.Height = 61.000000000000000000
+  Size.PlatformDefault = False
+  OnClick = FrameClick
+  object ToolBar1: TToolBar
+    Align = Client
+    Size.Width = 514.000000000000000000
+    Size.Height = 61.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object lblTitle: TLabel
+      Align = Contents
+      Size.Width = 514.000000000000000000
+      Size.Height = 61.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.HorzAlign = Center
+      Text = 'lblTitle'
+      TabOrder = 1
+    end
+    object Button1: TButton
+      Align = Right
+      Position.X = 434.000000000000000000
+      Size.Width = 80.000000000000000000
+      Size.Height = 61.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Text = 'Button1'
+    end
+  end
+end
