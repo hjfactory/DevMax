@@ -24,6 +24,18 @@ implementation
 uses
   DMX.DesignPattern;
 
+{ TDesignPatternTests }
+
+procedure TDesignPatternTests.Setup;
+begin
+
+end;
+
+procedure TDesignPatternTests.TearDown;
+begin
+
+end;
+
 type
   TSTObj = class(TSingleton<TSTObj>)
   private
@@ -45,18 +57,6 @@ begin
   Result := FData.ToString;
 end;
 
-{ TDesignPatternTests }
-
-procedure TDesignPatternTests.Setup;
-begin
-
-end;
-
-procedure TDesignPatternTests.TearDown;
-begin
-
-end;
-
 procedure TDesignPatternTests.TestSingleton;
 var
   S1, S2: string;
@@ -73,9 +73,33 @@ begin
   Assert.AreEqual(S1, S2);
 end;
 
-procedure TDesignPatternTests.TestFactory;
-begin
+type
+  TBaseCls = class(TInterfacedObject)
+  end;
+  TSubCls1 = class(TBaseCls)
+  end;
+  TSubCls2 = class(TBaseCls)
+  end;
 
+  TBaseClsClass = class of TBaseCls;
+  TClsFactory = TClassFactory<string, TBaseClsClass>;
+
+procedure TDesignPatternTests.TestFactory;
+var
+  Cls: TBaseClsClass;
+  Obj: TBaseCls;
+begin
+  TClsFactory.Instance.Regist('sub1', TSubCls1);
+  TClsFactory.Instance.Regist('sub2', TSubCls2);
+
+  Cls := TClsFactory.Instance.GetClass('sub1');
+  Assert.AreEqual(Cls.ClassName, TSubCls1.ClassName);
+  Cls := TClsFactory.Instance.GetClass('sub2');
+  Assert.AreEqual(Cls.ClassName, TSubCls2.ClassName);
+
+  Obj := Cls.Create;
+  Assert.AreEqual(Obj.ClassName, TSubCls2.ClassName);
+  Obj.Free;
 end;
 
 procedure TDesignPatternTests.TestObserver;
