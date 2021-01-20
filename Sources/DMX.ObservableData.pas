@@ -1,4 +1,4 @@
-unit DevMax.ObservableData;
+unit DMX.ObservableData;
 
 interface
 

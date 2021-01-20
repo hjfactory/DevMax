@@ -3,7 +3,7 @@ unit DataModule;
 interface
 
 uses
-  System.SysUtils, System.Classes, DevMax.ObservableData;
+  System.SysUtils, System.Classes, DMX.ObservableData;
 
 type
   TDataModule1 = class(TDataModule)

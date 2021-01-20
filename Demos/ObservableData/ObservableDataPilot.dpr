@@ -3,8 +3,8 @@ program ObservableDataPilot;
 uses
   Vcl.Forms,
   MainForm in 'MainForm.pas' {Form1},
-  DevMax.ObservableData in 'Sources\DevMax.ObservableData.pas',
-  DataModule in 'DataModule.pas' {DataModule1: TDataModule};
+  DataModule in 'DataModule.pas' {DataModule1: TDataModule},
+  DMX.ObservableData in '..\..\Sources\DMX.ObservableData.pas';
 
 {$R *.res}
 
