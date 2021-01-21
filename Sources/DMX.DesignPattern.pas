@@ -51,6 +51,18 @@ type
 
 {$REGION 'Observer'}
 type
+  IObserver<T> = interface;
+  ISubject<T> = interface
+  ['{6E501865-1F0D-4804-B6F0-E9C24A883555}']
+    procedure Subject(ASource: IObserver; ACommand: T);
+    procedure RegistObserver(AObserver: IObserver);
+    procedure UnregistObserver(AObserver: IObserver);
+  end;
+  IObserver<T> = interface
+    procedure Notifycation(ACommand: T);
+    procedure SetSubject(ASubject: ISubject<T>);
+  end;
+
   TSubject<T> = class
 
   end;
