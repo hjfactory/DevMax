@@ -49,6 +49,17 @@ type
 {$ENDREGION 'Factory'}
 
 
+{$REGION 'Observer'}
+type
+  TSubject<T> = class
+
+  end;
+  TObserver<T> = class
+
+  end;
+{$ENDREGION 'Observer'}
+
+
 implementation
 
 {$REGION 'Singleton'}
