@@ -26,11 +26,6 @@ type
   procedure Singleton_AddInstance(AObject: TObject);
 {$ENDREGION 'Singleton'}
 
-type
-  TTest = class
-
-  end;
-
 {$REGION 'Factory'}
 type
   TClassFactory<TKey; TCls> = class(TSingleton<TClassFactory<TKey, TCls>>)
@@ -51,23 +46,29 @@ type
 
 {$REGION 'Observer'}
 type
-  IObserver<T> = interface;
-  ISubject<T> = interface
-  ['{6E501865-1F0D-4804-B6F0-E9C24A883555}']
-    procedure Subject(ASource: IObserver; ACommand: T);
-    procedure RegistObserver(AObserver: IObserver);
-    procedure UnregistObserver(AObserver: IObserver);
+  ICustomCommandObserver<T> = interface;
+  ICommandSubject<T> = interface
+    procedure Notification(ACommand: T);
+    procedure RegistObserver(AObserver: ICustomCommandObserver<T>);
+    procedure UnregistObserver(AObserver: ICustomCommandObserver<T>);
   end;
-  IObserver<T> = interface
-    procedure Notifycation(ACommand: T);
-    procedure SetSubject(ASubject: ISubject<T>);
+  ICustomCommandObserver<T> = interface
+    procedure UpdateNotify(Sender: TObject; ACommand: T);
   end;
 
-  TSubject<T> = class
+  TCustomCommandSubject<T> = class(TInterfacedObject, ICommandSubject<T>)
+  private
+    FLock: TLightweightMREW;
+    FObservers: TList<ICustomCommandObserver<T>>;
+  public
+    constructor Create;
+    destructor Destroy; override;
 
-  end;
-  TObserver<T> = class
+    procedure RegistObserver(AObserver: ICustomCommandObserver<T>);
+    procedure UnregistObserver(AObserver: ICustomCommandObserver<T>);
 
+    procedure Notification(ACommand: T);
+    procedure NotificationTargetIntf(const IID: TGUID; ACommand: T);
   end;
 {$ENDREGION 'Observer'}
 
@@ -176,6 +177,72 @@ end;
 function TClassFactory<TKey, TCls>.GetClass(AKey: TKey): TCls;
 begin
   FList.TryGetValue(AKey, Result);
+end;
+
+{ TCustomCommandSubject<T> }
+
+constructor TCustomCommandSubject<T>.Create;
+begin
+  FObservers := TList<ICustomCommandObserver<T>>.Create;
+end;
+
+destructor TCustomCommandSubject<T>.Destroy;
+begin
+  FObservers.Free;
+
+  inherited;
+end;
+
+procedure TCustomCommandSubject<T>.Notification(ACommand: T);
+var
+  O: ICustomCommandObserver<T>;
+begin
+  FLock.BeginRead;
+  try
+    for O in FObservers do
+      O.UpdateNotify(Self, ACommand);
+  finally
+    FLock.EndRead;
+  end;
+end;
+
+procedure TCustomCommandSubject<T>.NotificationTargetIntf(const IID: TGUID;
+  ACommand: T);
+var
+  O: ICustomCommandObserver<T>;
+begin
+  FLock.BeginRead;
+  try
+    for O in FObservers do
+    begin
+      if Supports(O, IID) then
+        O.UpdateNotify(Self, ACommand);
+    end;
+  finally
+    FLock.EndRead;
+  end;
+end;
+
+procedure TCustomCommandSubject<T>.RegistObserver(
+  AObserver: ICustomCommandObserver<T>);
+begin
+  FLock.BeginWrite;
+  try
+    FObservers.Add(AObserver);
+  finally
+    FLock.EndWrite;
+  end;
+end;
+
+procedure TCustomCommandSubject<T>.UnregistObserver(
+  AObserver: ICustomCommandObserver<T>);
+begin
+  FLock.BeginWrite;
+  try
+    FObservers.Remove(AObserver)
+  finally
+    FLock.EndWrite;
+  end;
 end;
 
 initialization

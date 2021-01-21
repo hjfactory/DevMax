@@ -15,7 +15,8 @@ uses
   DMX.LiveData in '..\Sources\DMX.LiveData.pas',
   DMX.ObservableData in '..\Sources\DMX.ObservableData.pas',
   DMX.DesignPattern in '..\Sources\DMX.DesignPattern.pas',
-  Tests.DesignPattern in 'Tests.DesignPattern.pas';
+  Tests.DesignPattern in 'Tests.DesignPattern.pas',
+  DMX.Classes in '..\Sources\DMX.Classes.pas';
 
 var
   runner : ITestRunner;
