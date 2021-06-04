@@ -34,8 +34,11 @@ type
   protected
     procedure Initialize; override;
     procedure Finalize; override;
+
+    function CalcKey(ACls: TCls): TKey; virtual;
   public
-    procedure Regist(AKey: TKey; ACls: TCls);
+    procedure Regist(AKey: TKey; ACls: TCls); overload;
+    procedure Regist(ACls: TCls); overload;
     function GetClass(AKey: TKey): TCls;
     // The type of instance cannot be specified and cannot be implemented.
 //    function GetInstance(AKey: TKey): TValue;
@@ -97,14 +100,10 @@ begin
 end;
 
 procedure Singleton_ReleaseInstances;
-var
-  Obj: TObject;
 begin
   if not Assigned(Singleton_Dict) then
     Exit;
 
-//  for Obj in Singleton_Dict.Values do
-//    Obj.Free;
   Singleton_Dict.Free;
 end;
 
@@ -158,6 +157,19 @@ procedure TClassFactory<TKey, TCls>.Initialize;
 begin
   inherited;
   FList := TDictionary<TKey, TCls>.Create;
+end;
+
+procedure TClassFactory<TKey, TCls>.Regist(ACls: TCls);
+var
+  Key: TKey;
+begin
+  Key := CalcKey(ACls);
+  Regist(Key, ACls);
+end;
+
+function TClassFactory<TKey, TCls>.CalcKey(ACls: TCls): TKey;
+begin
+  raise Exception.Create('Override this method.');
 end;
 
 procedure TClassFactory<TKey, TCls>.Finalize;
